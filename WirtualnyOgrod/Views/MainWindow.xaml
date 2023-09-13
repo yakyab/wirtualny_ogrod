@@ -1,12 +1,99 @@
-﻿<Window x:Class="WirtualnyOgrod.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WirtualnyOgrod"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+﻿<metro:MetroWindow x:Class="WirtualnyOgrod.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                  Title="Wirtualny Ogród"
+                  Height="450" Width="800"
+                  ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- Definicja stylu dla przycisków nawigacyjnych -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#D0E1F9"/>
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BorderElement" Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BorderElement" Property="Background" Value="#B9CDF5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-    </Grid>
-</Window>
+        <!-- Definicja stylu dla przycisków Ustawienia i Pomoc -->
+        <Style x:Key="SpecialButtonStyle" BasedOn="{StaticResource NavButtonStyle}" TargetType="Button">
+            <Setter Property="Background" Value="#A5A5A5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="SpecialBorderElement" Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="SpecialBorderElement" Property="Background" Value="#8F8F8F"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Lewy pasek z przyciskami nawigacyjnymi -->
+    <DockPanel VerticalAlignment="Stretch">
+        <Grid DockPanel.Dock="Left" Width="200" Background="#E5E5E5" VerticalAlignment="Stretch">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Content="🌱 Moje rośliny" Grid.Row="1" Style="{StaticResource NavButtonStyle}"/>
+            <Button Content="💧 Plan nawodnienia" Grid.Row="2" Style="{StaticResource NavButtonStyle}"/>
+            <Button Content="📚 Biblioteka roślin" Grid.Row="3" Style="{StaticResource NavButtonStyle}"/>
+            <Border Height="2" Background="Gray" Margin="20,10" Grid.Row="5"/>
+            <Button Content="🔧 Ustawienia" Grid.Row="7" Style="{StaticResource SpecialButtonStyle}"/>
+            <Button Content="❓ Pomoc" Grid.Row="8" Style="{StaticResource SpecialButtonStyle}"/>
+            
+        </Grid>
+
+        <!-- Główna treść aplikacji -->
+        <Grid Background="White">
+            <!-- Miejsce na kontrolki zawartości głównej -->
+        </Grid>
+    </DockPanel>
+</metro:MetroWindow>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
