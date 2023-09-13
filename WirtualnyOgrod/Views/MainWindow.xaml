@@ -6,7 +6,6 @@
                   Height="450" Width="800"
                   ResizeMode="NoResize">
     <Window.Resources>
-        <!-- Definicja stylu dla przycisków nawigacyjnych -->
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#D0E1F9"/>
             <Setter Property="Foreground" Value="DarkSlateGray"/>
@@ -29,8 +28,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <!-- Definicja stylu dla przycisków Ustawienia i Pomoc -->
         <Style x:Key="SpecialButtonStyle" BasedOn="{StaticResource NavButtonStyle}" TargetType="Button">
             <Setter Property="Background" Value="#A5A5A5"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -51,11 +48,8 @@
             </Setter>
         </Style>
     </Window.Resources>
-
-    <!-- Lewy pasek z przyciskami nawigacyjnymi -->
     <DockPanel VerticalAlignment="Stretch">
         <Grid DockPanel.Dock="Left" Width="200" Background="#E5E5E5" VerticalAlignment="Stretch">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -68,21 +62,50 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Content="🌱 Moje rośliny" Grid.Row="1" Style="{StaticResource NavButtonStyle}"/>
-            <Button Content="💧 Plan nawodnienia" Grid.Row="2" Style="{StaticResource NavButtonStyle}"/>
-            <Button Content="📚 Biblioteka roślin" Grid.Row="3" Style="{StaticResource NavButtonStyle}"/>
+            <Button Content="🌱 Moje rośliny" Grid.Row="1" Style="{StaticResource NavButtonStyle}" Click="OnMyPlantsClick"/>
+            <Button Content="💧 Plan nawodnienia" Grid.Row="2" Style="{StaticResource NavButtonStyle}" Click="OnWateringPlanClick"/>
+            <Button Content="📚 Biblioteka roślin" Grid.Row="3" Style="{StaticResource NavButtonStyle}" Click="OnPlantLibraryClick"/>
             <Border Height="2" Background="Gray" Margin="20,10" Grid.Row="5"/>
-            <Button Content="🔧 Ustawienia" Grid.Row="7" Style="{StaticResource SpecialButtonStyle}"/>
+            <Button Content="🔧 Ustawienia" Grid.Row="7" Style="{StaticResource SpecialButtonStyle}" Click="OnSettingsClick"/>
             <Button Content="❓ Pomoc" Grid.Row="8" Style="{StaticResource SpecialButtonStyle}"/>
-            
         </Grid>
-
-        <!-- Główna treść aplikacji -->
         <Grid Background="White">
-            <!-- Miejsce na kontrolki zawartości głównej -->
+            <!-- Kontrolka ListView dla "Moje rośliny" -->
+            <ListView x:Name="MyPlantsListView" Visibility="Collapsed" ItemsSource="{Binding MyPlantsViewModel.MyPlants}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Width="50" Height="50" Margin="5"/>
+                            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
+                            <Button Content="Usuń" Command="{Binding DataContext.MyPlantsViewModel.RemovePlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Kontrolka ListView dla "Biblioteka roślin" -->
+            <ListView x:Name="PlantLibraryListView" Visibility="Collapsed" ItemsSource="{Binding PlantLibraryViewModel.AvailablePlants}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Width="50" Height="50" Margin="5"/>
+                            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
+                            <Button Content="Dodaj" Command="{Binding DataContext.PlantLibraryViewModel.AddPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Twoja wcześniejsza kontrolka dla Ustawienia -->
+            <StackPanel x:Name="SettingsPanel" Visibility="Collapsed">
+                <TextBlock Text="Ustawienia" FontSize="20" FontWeight="Bold" Margin="10"/>
+                <Slider x:Name="TemperatureSlider" Minimum="0" Maximum="40" TickFrequency="1" Margin="10"/>
+                <Slider x:Name="HumiditySlider" Minimum="0" Maximum="100" TickFrequency="5" Margin="10"/>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </metro:MetroWindow>
+
 
 
 
