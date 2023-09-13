@@ -12,27 +12,22 @@ namespace WirtualnyOgrod.ViewModels
 
         public static MyPlantsViewModel Instance
         {
-            get
-            {
-                return _instance ??= new MyPlantsViewModel();
-            }
+            get { return _instance ??= new MyPlantsViewModel(); }
         }
 
         public ObservableCollection<Plant> MyPlants
         {
             get { return _myPlants; }
-            set
-            {
-                _myPlants = value;
-                OnPropertyChanged(nameof(MyPlants));
-            }
+            set { _myPlants = value; OnPropertyChanged(nameof(MyPlants)); }
         }
 
         public ICommand RemovePlantCommand { get; set; }
+        public ICommand AddPlantCommand { get; set; }  // Nowe polecenie
 
         private MyPlantsViewModel()
         {
             RemovePlantCommand = new RelayCommand<Plant>(RemovePlant, CanRemovePlant);
+            AddPlantCommand = new RelayCommand<Plant>(AddPlant);  // Inicjalizacja nowego polecenia
         }
 
         private void RemovePlant(Plant plantToRemove)
@@ -47,6 +42,15 @@ namespace WirtualnyOgrod.ViewModels
         {
             return plantToRemove != null && MyPlants.Contains(plantToRemove);
         }
+
+        private void AddPlant(Plant plantToAdd)  // Nowa metoda
+        {
+            if (plantToAdd != null && !MyPlants.Contains(plantToAdd))
+            {
+                MyPlants.Add(plantToAdd);
+            }
+        }
     }
 }
+
 

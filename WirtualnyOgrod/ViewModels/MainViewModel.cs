@@ -23,7 +23,7 @@ namespace WirtualnyOgrod.ViewModels
         public MainViewModel()
         {
             PlantLibraryViewModel = new PlantLibraryViewModel();
-            MyPlantsViewModel = new MyPlantsViewModel();
+            MyPlantsViewModel = MyPlantsViewModel.Instance;
             WateringScheduleViewModel = new WateringScheduleViewModel();
             SettingsViewModel = new SettingsViewModel();
             HelpViewModel = new HelpViewModel();

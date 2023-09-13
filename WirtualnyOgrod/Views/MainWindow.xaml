@@ -5,6 +5,7 @@
                   Title="Wirtualny Ogród"
                   Height="450" Width="800"
                   ResizeMode="NoResize">
+
     <Window.Resources>
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#D0E1F9"/>
@@ -48,27 +49,17 @@
             </Setter>
         </Style>
     </Window.Resources>
+
     <DockPanel VerticalAlignment="Stretch">
-        <Grid DockPanel.Dock="Left" Width="200" Background="#E5E5E5" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Button Content="🌱 Moje rośliny" Grid.Row="1" Style="{StaticResource NavButtonStyle}" Click="OnMyPlantsClick"/>
-            <Button Content="💧 Plan nawodnienia" Grid.Row="2" Style="{StaticResource NavButtonStyle}" Click="OnWateringPlanClick"/>
-            <Button Content="📚 Biblioteka roślin" Grid.Row="3" Style="{StaticResource NavButtonStyle}" Click="OnPlantLibraryClick"/>
-            <Border Height="2" Background="Gray" Margin="20,10" Grid.Row="5"/>
-            <Button Content="🔧 Ustawienia" Grid.Row="7" Style="{StaticResource SpecialButtonStyle}" Click="OnSettingsClick"/>
-            <Button Content="❓ Pomoc" Grid.Row="8" Style="{StaticResource SpecialButtonStyle}"/>
-        </Grid>
+        <!-- Pasek boczny nawigacji -->
+        <StackPanel DockPanel.Dock="Left" Width="60" Background="#E5E5E5">
+            <Button Content="🌱" ToolTip="Moje rośliny" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnMyPlantsClick"/>
+            <Button Content="💧" ToolTip="Plan nawodnienia" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnWateringPlanClick"/>
+            <Button Content="📚" ToolTip="Biblioteka roślin" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnPlantLibraryClick"/>
+            <Button Content="🔧" ToolTip="Ustawienia" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnSettingsClick"/>
+            <Button Content="❓" ToolTip="Pomoc" Width="50" Height="50" Margin="5" Background="#81C784"/>
+        </StackPanel>
+
         <Grid Background="White">
             <!-- Kontrolka ListView dla "Moje rośliny" -->
             <ListView x:Name="MyPlantsListView" Visibility="Collapsed" ItemsSource="{Binding MyPlantsViewModel.MyPlants}">
@@ -96,15 +87,30 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <!-- Twoja wcześniejsza kontrolka dla Ustawienia -->
+            <!-- Kontrolka dla Ustawienia -->
             <StackPanel x:Name="SettingsPanel" Visibility="Collapsed">
                 <TextBlock Text="Ustawienia" FontSize="20" FontWeight="Bold" Margin="10"/>
                 <Slider x:Name="TemperatureSlider" Minimum="0" Maximum="40" TickFrequency="1" Margin="10"/>
                 <Slider x:Name="HumiditySlider" Minimum="0" Maximum="100" TickFrequency="5" Margin="10"/>
             </StackPanel>
+
+            <!-- Pasek wyszukiwania dla "Biblioteka roślin" -->
+            <TextBox x:Name="SearchBar" Margin="10" Visibility="Collapsed" GotFocus="SearchBar_GotFocus" LostFocus="SearchBar_LostFocus">
+                <TextBox.Background>
+                    <VisualBrush x:Name="SearchBarWatermark" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                        <VisualBrush.Visual>
+                            <Label Content="Wyszukaj roślinę..." Foreground="LightGray" Padding="5,0,0,0"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </TextBox.Background>
+            </TextBox>
+
+
+
         </Grid>
     </DockPanel>
 </metro:MetroWindow>
+
 
 
 
