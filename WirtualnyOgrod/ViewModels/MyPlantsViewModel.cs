@@ -24,7 +24,7 @@ namespace WirtualnyOgrod.ViewModels
         public ICommand RemovePlantCommand { get; set; }
         public ICommand AddPlantCommand { get; set; }  // Nowe polecenie
 
-        private MyPlantsViewModel()
+        public MyPlantsViewModel()
         {
             RemovePlantCommand = new RelayCommand<Plant>(RemovePlant, CanRemovePlant);
             AddPlantCommand = new RelayCommand<Plant>(AddPlant);  // Inicjalizacja nowego polecenia

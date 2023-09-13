@@ -57,35 +57,57 @@
             <Button Content="💧" ToolTip="Plan nawodnienia" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnWateringPlanClick"/>
             <Button Content="📚" ToolTip="Biblioteka roślin" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnPlantLibraryClick"/>
             <Button Content="🔧" ToolTip="Ustawienia" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnSettingsClick"/>
-            <Button Content="❓" ToolTip="Pomoc" Width="50" Height="50" Margin="5" Background="#81C784"/>
+            <Button Content="❓" ToolTip="Pomoc" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnHelpClick"/>
         </StackPanel>
 
         <Grid Background="White">
             <!-- Kontrolka ListView dla "Moje rośliny" -->
-            <ListView x:Name="MyPlantsListView" Visibility="Collapsed" ItemsSource="{Binding MyPlantsViewModel.MyPlants}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Width="50" Height="50" Margin="5"/>
-                            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
-                            <Button Content="Usuń" Command="{Binding DataContext.MyPlantsViewModel.RemovePlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView x:Name="MyPlantsListView" Visibility="Collapsed" ItemsSource="{Binding MyPlants}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Usuń" Command="{Binding DataContext.RemovePlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
             </ListView>
 
+
             <!-- Kontrolka ListView dla "Biblioteka roślin" -->
-            <ListView x:Name="PlantLibraryListView" Visibility="Collapsed" ItemsSource="{Binding PlantLibraryViewModel.AvailablePlants}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Width="50" Height="50" Margin="5"/>
-                            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
-                            <Button Content="Dodaj" Command="{Binding DataContext.PlantLibraryViewModel.AddPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView x:Name="PlantLibraryListView" Visibility="Collapsed" ItemsSource="{Binding AvailablePlants}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Dodaj" Command="{Binding DataContext.PlantLibraryViewModel.AddPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
             </ListView>
+
 
             <!-- Kontrolka dla Ustawienia -->
             <StackPanel x:Name="SettingsPanel" Visibility="Collapsed">
@@ -104,6 +126,28 @@
                     </VisualBrush>
                 </TextBox.Background>
             </TextBox>
+
+            <!-- Kontrolka dla "Plan nawodnienia" -->
+            <StackPanel x:Name="WateringPlanPanel" Visibility="Collapsed">
+                <TextBlock Text="Plan nawodnienia" FontSize="20" FontWeight="Bold" Margin="10"/>
+                <ListView x:Name="WateringScheduleListView" ItemsSource="{Binding WateringScheduleViewModel.Schedules}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding PlantId}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="{Binding LastWatered}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <Button Content="Usuń" Command="{Binding DataContext.WateringScheduleViewModel.RemoveScheduleCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            <!-- Kontrolka dla "Pomoc" -->
+            <StackPanel x:Name="HelpPanel" Visibility="Collapsed">
+                <TextBlock Text="Pomoc" FontSize="20" FontWeight="Bold" Margin="10"/>
+                <TextBlock Text="Tutaj znajdziesz pomoc dotyczącą korzystania z aplikacji." FontSize="16" Margin="10"/>
+            </StackPanel>
 
 
 

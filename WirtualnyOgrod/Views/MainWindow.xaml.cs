@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using MahApps.Metro.Controls;
+using WirtualnyOgrod.ViewModels;
 
 namespace WirtualnyOgrod
 {
@@ -8,59 +10,72 @@ namespace WirtualnyOgrod
         public MainWindow()
         {
             InitializeComponent();
+            MyPlantsListView.DataContext = new MyPlantsViewModel();
+            PlantLibraryListView.DataContext = new PlantLibraryViewModel();
+            WateringPlanPanel.DataContext = new WateringScheduleViewModel();
+            SettingsPanel.DataContext = new SettingsViewModel();
+            HelpPanel.DataContext = new HelpViewModel();
         }
 
         private void OnMyPlantsClick(object sender, RoutedEventArgs e)
         {
+            HideAllPanels();
             MyPlantsListView.Visibility = Visibility.Visible;
-            PlantLibraryListView.Visibility = Visibility.Collapsed;
-            SettingsPanel.Visibility = Visibility.Collapsed;
-            // Dodajemy obsługę dla innych kontrolek, gdy zostaną dodane
         }
 
         private void OnWateringPlanClick(object sender, RoutedEventArgs e)
         {
-            MyPlantsListView.Visibility = Visibility.Collapsed;
-            PlantLibraryListView.Visibility = Visibility.Collapsed;
-            SettingsPanel.Visibility = Visibility.Collapsed;
-            // Dodajemy obsługę dla kontrolek związanych z Planem nawodnienia, gdy zostaną dodane
+            HideAllPanels();
+            WateringPlanPanel.Visibility = Visibility.Visible;
         }
 
         private void OnPlantLibraryClick(object sender, RoutedEventArgs e)
         {
-            MyPlantsListView.Visibility = Visibility.Collapsed;
+            HideAllPanels();
             PlantLibraryListView.Visibility = Visibility.Visible;
-            SettingsPanel.Visibility = Visibility.Collapsed;
-            // Dodajemy obsługę dla innych kontrolek, gdy zostaną dodane
         }
 
         private void OnSettingsClick(object sender, RoutedEventArgs e)
         {
-            MyPlantsListView.Visibility = Visibility.Collapsed;
-            PlantLibraryListView.Visibility = Visibility.Collapsed;
+            HideAllPanels();
             SettingsPanel.Visibility = Visibility.Visible;
-            // Dodajemy obsługę dla innych kontrolek, gdy zostaną dodane
         }
 
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
+            HideAllPanels();
+            HelpPanel.Visibility = Visibility.Visible;
+        }
+
+        private void HideAllPanels()
+        {
             MyPlantsListView.Visibility = Visibility.Collapsed;
             PlantLibraryListView.Visibility = Visibility.Collapsed;
             SettingsPanel.Visibility = Visibility.Collapsed;
-            // Dodajemy obsługę dla kontrolek związanych z Pomocą, gdy zostaną dodane
-        }
-        private void SearchBar_GotFocus(object sender, RoutedEventArgs e)
-        {
-            SearchBarWatermark.Opacity = 0;
+            WateringPlanPanel.Visibility = Visibility.Collapsed;
+            HelpPanel.Visibility = Visibility.Collapsed;
         }
 
         private void SearchBar_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(SearchBar.Text))
+            if (string.IsNullOrWhiteSpace(SearchBar.Text))
             {
-                SearchBarWatermark.Opacity = 1;
+                SearchBar.Text = "Wyszukaj roślinę...";
+                SearchBar.Foreground = Brushes.LightGray; // Zmienia kolor tekstu na jasnoszary
+                SearchBar.Background = Brushes.White; // Zmienia tło na białe
             }
         }
+
+        private void SearchBar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchBar.Text == "Wyszukaj roślinę...")
+            {
+                SearchBar.Text = string.Empty;
+                SearchBar.Foreground = Brushes.Black; // Zmienia kolor tekstu na czarny
+                SearchBar.Background = Brushes.White; // Zmienia tło na białe
+            }
+        }
+
 
     }
 }

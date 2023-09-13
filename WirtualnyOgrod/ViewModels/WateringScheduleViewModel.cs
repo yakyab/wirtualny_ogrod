@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WirtualnyOgrod.Models;
@@ -34,6 +35,21 @@ namespace WirtualnyOgrod.ViewModels
                 Schedules.Remove(scheduleToRemove);
             }
         }
+
+        public void CreateWateringSchedule(Plant plant)
+        {
+            if (plant != null)
+            {
+                var schedule = new WateringSchedule
+                {
+                    PlantId = plant.Id,
+                    LastWatered = DateTime.Now,
+                    WateringFrequency = TimeSpan.FromDays(plant.WaterNeeds) // Przykład, dostosuj według potrzeb
+                };
+                Schedules.Add(schedule);
+            }
+        }
     }
 }
+
 
