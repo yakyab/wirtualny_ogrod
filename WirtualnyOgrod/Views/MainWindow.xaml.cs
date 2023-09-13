@@ -10,7 +10,7 @@ namespace WirtualnyOgrod
         public MainWindow()
         {
             InitializeComponent();
-            MyPlantsListView.DataContext = new MyPlantsViewModel();
+            MyPlantsListView.DataContext = MyPlantsViewModel.Instance;
             PlantLibraryListView.DataContext = new PlantLibraryViewModel();
             WateringPlanPanel.DataContext = new WateringScheduleViewModel();
             SettingsPanel.DataContext = new SettingsViewModel();
@@ -55,27 +55,6 @@ namespace WirtualnyOgrod
             WateringPlanPanel.Visibility = Visibility.Collapsed;
             HelpPanel.Visibility = Visibility.Collapsed;
         }
-
-        private void SearchBar_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(SearchBar.Text))
-            {
-                SearchBar.Text = "Wyszukaj roślinę...";
-                SearchBar.Foreground = Brushes.LightGray; // Zmienia kolor tekstu na jasnoszary
-                SearchBar.Background = Brushes.White; // Zmienia tło na białe
-            }
-        }
-
-        private void SearchBar_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (SearchBar.Text == "Wyszukaj roślinę...")
-            {
-                SearchBar.Text = string.Empty;
-                SearchBar.Foreground = Brushes.Black; // Zmienia kolor tekstu na czarny
-                SearchBar.Background = Brushes.White; // Zmienia tło na białe
-            }
-        }
-
 
     }
 }

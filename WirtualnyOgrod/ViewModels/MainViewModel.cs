@@ -14,6 +14,9 @@ namespace WirtualnyOgrod.ViewModels
 
     public class MainViewModel : BaseViewModel
     {
+        private static MainViewModel _instance;
+        public static MainViewModel Instance => _instance ??= new MainViewModel();
+
         public PlantLibraryViewModel PlantLibraryViewModel { get; set; }
         public MyPlantsViewModel MyPlantsViewModel { get; set; }
         public WateringScheduleViewModel WateringScheduleViewModel { get; set; }
@@ -23,7 +26,7 @@ namespace WirtualnyOgrod.ViewModels
         public MainViewModel()
         {
             PlantLibraryViewModel = new PlantLibraryViewModel();
-            MyPlantsViewModel = new MyPlantsViewModel();
+            MyPlantsViewModel = MyPlantsViewModel.Instance;
             WateringScheduleViewModel = new WateringScheduleViewModel();
             SettingsViewModel = new SettingsViewModel();
             HelpViewModel = new HelpViewModel();

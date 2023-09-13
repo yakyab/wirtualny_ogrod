@@ -61,18 +61,22 @@
         </StackPanel>
 
         <Grid Background="White">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsDarkMode}" Value="True">
+                            <Setter Property="Background" Value="Black"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <!-- Kontrolka ListView dla "Moje rośliny" -->
             <ListView x:Name="MyPlantsListView" Visibility="Collapsed" ItemsSource="{Binding MyPlants}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="50">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                         <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding Description}" Width="300"/>
                         <GridViewColumn Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -84,23 +88,16 @@
                 </ListView.View>
             </ListView>
 
-
             <!-- Kontrolka ListView dla "Biblioteka roślin" -->
             <ListView x:Name="PlantLibraryListView" Visibility="Collapsed" ItemsSource="{Binding AvailablePlants}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="50">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                         <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding Description}" Width="300"/>
                         <GridViewColumn Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Dodaj" Command="{Binding DataContext.PlantLibraryViewModel.AddPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
+                                    <Button Content="Dodaj" Command="{Binding DataContext.AddPlantToMyPlantsCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -108,24 +105,12 @@
                 </ListView.View>
             </ListView>
 
-
             <!-- Kontrolka dla Ustawienia -->
             <StackPanel x:Name="SettingsPanel" Visibility="Collapsed">
                 <TextBlock Text="Ustawienia" FontSize="20" FontWeight="Bold" Margin="10"/>
-                <Slider x:Name="TemperatureSlider" Minimum="0" Maximum="40" TickFrequency="1" Margin="10"/>
-                <Slider x:Name="HumiditySlider" Minimum="0" Maximum="100" TickFrequency="5" Margin="10"/>
+                <ToggleButton IsChecked="{Binding IsDarkMode, Mode=TwoWay}" Content="Tryb ciemny" Margin="10"/>
             </StackPanel>
 
-            <!-- Pasek wyszukiwania dla "Biblioteka roślin" -->
-            <TextBox x:Name="SearchBar" Margin="10" Visibility="Collapsed" GotFocus="SearchBar_GotFocus" LostFocus="SearchBar_LostFocus">
-                <TextBox.Background>
-                    <VisualBrush x:Name="SearchBarWatermark" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                        <VisualBrush.Visual>
-                            <Label Content="Wyszukaj roślinę..." Foreground="LightGray" Padding="5,0,0,0"/>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </TextBox.Background>
-            </TextBox>
 
             <!-- Kontrolka dla "Plan nawodnienia" -->
             <StackPanel x:Name="WateringPlanPanel" Visibility="Collapsed">
@@ -134,8 +119,9 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding PlantId}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="{Binding Plant.Name}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
                                 <TextBlock Text="{Binding LastWatered}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <Button Content="Podlej" Command="{Binding DataContext.WateringScheduleViewModel.WaterPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
                                 <Button Content="Usuń" Command="{Binding DataContext.WateringScheduleViewModel.RemoveScheduleCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
                             </StackPanel>
                         </DataTemplate>

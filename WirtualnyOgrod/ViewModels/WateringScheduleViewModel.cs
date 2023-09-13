@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using WirtualnyOgrod.Models;
 
@@ -9,15 +9,16 @@ namespace WirtualnyOgrod.ViewModels
     public class WateringScheduleViewModel : BaseViewModel
     {
         public ObservableCollection<WateringSchedule> Schedules { get; set; }
-
         public ICommand AddScheduleCommand { get; set; }
         public ICommand RemoveScheduleCommand { get; set; }
+        public ICommand WaterPlantCommand { get; set; }
 
         public WateringScheduleViewModel()
         {
             Schedules = new ObservableCollection<WateringSchedule>();
             AddScheduleCommand = new RelayCommand<WateringSchedule>(AddSchedule);
             RemoveScheduleCommand = new RelayCommand<WateringSchedule>(RemoveSchedule);
+            WaterPlantCommand = new RelayCommand<WateringSchedule>(WaterPlant);
         }
 
         private void AddSchedule(WateringSchedule scheduleToAdd)
@@ -36,17 +37,17 @@ namespace WirtualnyOgrod.ViewModels
             }
         }
 
-        public void CreateWateringSchedule(Plant plant)
+        private void WaterPlant(WateringSchedule scheduleToWater)
         {
-            if (plant != null)
+            if (scheduleToWater != null)
             {
-                var schedule = new WateringSchedule
+                // Resetowanie timera podlewania do jego początkowej wartości.
+                // Zakładając, że początkowa wartość timera jest przechowywana w modelu Plant.
+                var plant = MyPlantsViewModel.Instance.MyPlants.FirstOrDefault(p => p.Id == scheduleToWater.PlantId);
+                if (plant != null)
                 {
-                    PlantId = plant.Id,
-                    LastWatered = DateTime.Now,
-                    WateringFrequency = TimeSpan.FromDays(plant.WaterNeeds) // Przykład, dostosuj według potrzeb
-                };
-                Schedules.Add(schedule);
+                    scheduleToWater.WateringTimer = plant.WateringTimer;
+                }
             }
         }
     }

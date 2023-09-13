@@ -1,18 +1,32 @@
-﻿namespace WirtualnyOgrod.ViewModels
+﻿using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
+
+namespace WirtualnyOgrod.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private double _gardenScale = 1.0;
+        private bool _isDarkMode;
 
-        public double GardenScale
+        public bool IsDarkMode
         {
-            get { return _gardenScale; }
+            get { return _isDarkMode; }
             set
             {
-                _gardenScale = value;
-                OnPropertyChanged(nameof(GardenScale));
+                _isDarkMode = value;
+                OnPropertyChanged(nameof(IsDarkMode));
             }
+        }
+
+        public ICommand ToggleDarkModeCommand { get; set; }
+
+        public SettingsViewModel()
+        {
+            ToggleDarkModeCommand = new RelayCommand(ToggleDarkMode);
+        }
+
+        private void ToggleDarkMode()
+        {
+            IsDarkMode = !IsDarkMode;
         }
     }
 }
-
