@@ -111,23 +111,24 @@
                 <ToggleButton IsChecked="{Binding IsDarkMode, Mode=TwoWay}" Content="Tryb ciemny" Margin="10"/>
             </StackPanel>
 
+            <!-- Kontrolka ListView dla "Plan nawodnienia" -->
+            <ListView x:Name="WateringScheduleListView" Visibility="Collapsed" ItemsSource="{Binding MyPlants}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Roślina" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn Header="Czas do uschnięcia (s)" DisplayMemberBinding="{Binding WateringTimer}" Width="300"/>
+                        <GridViewColumn Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Podlej" Command="{Binding DataContext.WaterPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            <!-- Kontrolka dla "Plan nawodnienia" -->
-            <StackPanel x:Name="WateringPlanPanel" Visibility="Collapsed">
-                <TextBlock Text="Plan nawodnienia" FontSize="20" FontWeight="Bold" Margin="10"/>
-                <ListView x:Name="WateringScheduleListView" ItemsSource="{Binding WateringScheduleViewModel.Schedules}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Plant.Name}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="{Binding LastWatered}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
-                                <Button Content="Podlej" Command="{Binding DataContext.WateringScheduleViewModel.WaterPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
-                                <Button Content="Usuń" Command="{Binding DataContext.WateringScheduleViewModel.RemoveScheduleCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+
 
             <!-- Kontrolka dla "Pomoc" -->
             <StackPanel x:Name="HelpPanel" Visibility="Collapsed">
