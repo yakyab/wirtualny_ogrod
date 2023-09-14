@@ -22,7 +22,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BorderElement" Property="Background" Value="#B9CDF5"/>
+                                <Setter TargetName="BorderElement" Property="Background" Value="#6FA761"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -48,6 +48,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <!-- Styl dla zawartości w ListView -->
         <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
             <Setter Property="Background" Value="#f9f9f9"/>
@@ -129,19 +130,51 @@
         <Style x:Key="HelpBackground" TargetType="StackPanel">
             <Setter Property="Background">
                 <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Views/Images/help.jpg" Opacity="0.3" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Views/Images/help.jpg" Opacity="0.15" Stretch="UniformToFill"/>
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="HelpTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="HelpTitleTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,10,0,5"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="HelpDescriptionTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+
+
     </Window.Resources>
 
     <DockPanel VerticalAlignment="Stretch">
         <!-- Pasek boczny nawigacji -->
         <StackPanel DockPanel.Dock="Left" Width="60" Background="#E5E5E5">
             <Button Content="🌱" ToolTip="Moje rośliny" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnMyPlantsClick"/>
-            <Button Content="💧" ToolTip="Plan nawodnienia" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnWateringPlanClick"/>
-            <Button Content="📚" ToolTip="Biblioteka roślin" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnPlantLibraryClick"/>
-            <Button Content="❓" ToolTip="Pomoc" Width="50" Height="50" Margin="5" Background="#81C784" Click="OnHelpClick"/>
+            <Button Content="💧" ToolTip="Plan nawodnienia" Width="50" Height="50" Margin="5" Background="Aqua" Click="OnWateringPlanClick"/>
+            <Button Content="📚" ToolTip="Biblioteka roślin" Width="50" Height="50" Margin="5" Background="RosyBrown" Click="OnPlantLibraryClick"/>
+            <Button Content="❓" ToolTip="Pomoc" Width="50" Height="50" Margin="5" Background="#FFA500" Click="OnHelpClick"/>
+            <Button x:Name="MuteButton" Width="50" Height="50" Margin="5" Background="White" Click="OnMuteClick">
+                <Image x:Name="MuteImage" Source="pack://application:,,,/WirtualnyOgrod;component/Views/Images/speaker.jpg"/>
+            </Button>
         </StackPanel>
 
         <Grid Background="White">
@@ -155,8 +188,8 @@
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
                         <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
-                        <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding Description}" Width="300"/>
-                        <GridViewColumn Width="80">
+                        <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding Description}" Width="250"/>
+                        <GridViewColumn Header="Akcja" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="Usuń" Command="{Binding DataContext.RemovePlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Style="{StaticResource ListViewButtonStyle}"/>
@@ -172,8 +205,8 @@
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
                         <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
-                        <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding Description}" Width="300"/>
-                        <GridViewColumn Width="80">
+                        <GridViewColumn Header="Opis" DisplayMemberBinding="{Binding Description}" Width="250"/>
+                        <GridViewColumn Header="Akcja" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="Dodaj" Command="{Binding DataContext.AddPlantToMyPlantsCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Style="{StaticResource ListViewButtonStyle}"/>
@@ -190,8 +223,8 @@
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
                         <GridViewColumn Header="Roślina" DisplayMemberBinding="{Binding Name}" Width="200"/>
-                        <GridViewColumn Header="Czas do uschnięcia (s)" DisplayMemberBinding="{Binding WateringTimer}" Width="300"/>
-                        <GridViewColumn Width="100">
+                        <GridViewColumn Header="Czas do uschnięcia (s)" DisplayMemberBinding="{Binding WateringTimer}" Width="250"/>
+                        <GridViewColumn Header="Akcja" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="Podlej" Command="{Binding DataContext.WaterPlantCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" Style="{StaticResource ListViewButtonStyle}" />
@@ -202,26 +235,25 @@
                 </ListView.View>
             </ListView>
 
-            <!-- Kontrolka dla "Pomoc" -->
-            <Border Padding="10">
-                <StackPanel x:Name="HelpPanel" Visibility="Collapsed" Style="{StaticResource HelpBackground}" >
-                    <TextBlock Text="Pomoc" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" Foreground="#4CAF50" FontFamily="Arial"/>
+            <Border Padding="0">
+                <StackPanel x:Name="HelpPanel" Visibility="Collapsed" Style="{StaticResource HelpBackground}">
+                    <TextBlock Text="Wirtualny Ogród" Style="{StaticResource HelpTitleTextStyle}" Foreground="DarkMagenta"/>
+                    <TextBlock Text="Twoje miejsce do zarządzania roślinami!" Style="{StaticResource HelpDescriptionTextStyle}" Foreground="Purple"/>
 
-                    <TextBlock FontSize="20" FontWeight="SemiBold" Foreground="#4CAF50" FontFamily="Arial">Wirtualny Ogród</TextBlock>
-                    <TextBlock Text="Wirtualny Ogród - Twoje miejsce do zarządzania roślinami!" FontSize="18" Margin="0,5,0,15" TextWrapping="Wrap" Foreground="DarkSlateGray" FontFamily="Arial"/>
+                    <TextBlock Text="Moje rośliny" Style="{StaticResource HelpTitleTextStyle}" Foreground="DarkMagenta"/>
+                    <TextBlock Text="Wyświetla listę Twoich roślin oraz umożliwia usuwanie roślin z listy." Style="{StaticResource HelpDescriptionTextStyle}" Foreground="Purple"/>
 
-                    <TextBlock FontSize="20" FontWeight="SemiBold" Foreground="#4CAF50" FontFamily="Arial">Moje rośliny:</TextBlock>
-                    <TextBlock Text="- Wyświetla listę Twoich roślin.\n- Możesz usunąć roślinę z listy." FontSize="18" Margin="0,5,0,15" TextWrapping="Wrap" Foreground="DarkSlateGray" FontFamily="Arial"/>
+                    <TextBlock Text="Biblioteka roślin" Style="{StaticResource HelpTitleTextStyle}" Foreground="DarkMagenta"/>
+                    <TextBlock Text="Przeglądaj dostępne rośliny oraz dodawaj rośliny do swojej kolekcji." Style="{StaticResource HelpDescriptionTextStyle}" Foreground="Purple"/>
 
-                    <TextBlock FontSize="20" FontWeight="SemiBold" Foreground="#4CAF50" FontFamily="Arial">Biblioteka roślin:</TextBlock>
-                    <TextBlock Text="- Przeglądaj dostępne rośliny.\n- Dodaj rośliny do swojej kolekcji." FontSize="18" Margin="0,5,0,15" TextWrapping="Wrap" Foreground="DarkSlateGray" FontFamily="Arial"/>
+                    <TextBlock Text="Plan nawodnienia" Style="{StaticResource HelpTitleTextStyle}" Foreground="DarkMagenta"/>
+                    <TextBlock Text="Monitoruj, kiedy Twoje rośliny potrzebują wody i podlewaj je." Style="{StaticResource HelpDescriptionTextStyle}" Foreground="Purple"/>
 
-                    <TextBlock FontSize="20" FontWeight="SemiBold" Foreground="#4CAF50" FontFamily="Arial">Plan nawodnienia:</TextBlock>
-                    <TextBlock Text="- Monitoruj, kiedy Twoje rośliny potrzebują wody.\n- Podlewaj rośliny bezpośrednio z aplikacji." FontSize="18" Margin="0,5,0,15" TextWrapping="Wrap" Foreground="DarkSlateGray" FontFamily="Arial"/>
-
-                    <TextBlock Text="Skorzystaj z panelu bocznego, aby nawigować między różnymi sekcjami aplikacji." FontSize="18" Margin="0,5,0,15" TextWrapping="Wrap" Foreground="DarkSlateGray" FontFamily="Arial"/>
+                    <TextBlock Text="Panel boczny" Style="{StaticResource HelpTitleTextStyle}" Foreground="DarkMagenta"/>
+                    <TextBlock Text="Skorzystaj z panelu bocznego, aby nawigować między różnymi sekcjami aplikacji." Style="{StaticResource HelpDescriptionTextStyle}" Foreground="Purple"/>
                 </StackPanel>
             </Border>
+
 
 
         </Grid>

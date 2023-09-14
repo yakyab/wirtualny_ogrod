@@ -10,7 +10,13 @@
     <None Remove="Views\Images\garden.jpg" />
     <None Remove="Views\Images\help.jpg" />
     <None Remove="Views\Images\library.jpg" />
+    <None Remove="Views\Images\speaker muted.jpg" />
+    <None Remove="Views\Images\speaker.jpg" />
     <None Remove="Views\Images\watering.jpg" />
+    <None Remove="Views\Sounds\birds.wav" />
+    <None Remove="Views\Sounds\menu.wav" />
+    <None Remove="Views\Sounds\spade.wav" />
+    <None Remove="Views\Sounds\water.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +35,25 @@
     <Resource Include="Views\Images\library.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\Images\speaker muted.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Images\speaker.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Views\Images\watering.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Sounds\birds.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Sounds\menu.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Sounds\spade.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Sounds\water.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
