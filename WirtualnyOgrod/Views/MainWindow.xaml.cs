@@ -14,8 +14,8 @@ namespace WirtualnyOgrod
             MyPlantsListView.DataContext = MyPlantsViewModel.Instance;
             PlantLibraryListView.DataContext = PlantLibraryViewModel.Instance;
             WateringScheduleListView.DataContext = MyPlantsViewModel.Instance;
-            SettingsPanel.DataContext = new SettingsViewModel();
             HelpPanel.DataContext = new HelpViewModel();
+            HelpPanel.Visibility = Visibility.Visible;
         }
 
         private void OnMyPlantsClick(object sender, RoutedEventArgs e)
@@ -36,12 +36,6 @@ namespace WirtualnyOgrod
             PlantLibraryListView.Visibility = Visibility.Visible;
         }
 
-        private void OnSettingsClick(object sender, RoutedEventArgs e)
-        {
-            HideAllPanels();
-            SettingsPanel.Visibility = Visibility.Visible;
-        }
-
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
             HideAllPanels();
@@ -52,7 +46,6 @@ namespace WirtualnyOgrod
         {
             MyPlantsListView.Visibility = Visibility.Collapsed;
             PlantLibraryListView.Visibility = Visibility.Collapsed;
-            SettingsPanel.Visibility = Visibility.Collapsed;
             WateringScheduleListView.Visibility = Visibility.Collapsed;
             HelpPanel.Visibility = Visibility.Collapsed;
         }

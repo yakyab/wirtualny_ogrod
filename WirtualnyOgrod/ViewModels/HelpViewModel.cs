@@ -20,11 +20,27 @@
             InitializeHelpContent();
         }
 
-        // Przykładowa metoda inicjalizująca zawartość informacji pomocniczych. 
         private void InitializeHelpContent()
         {
-            HelpContent = "Tu jest informacja pomocnicza dla użytkownika. Opisuje, jak korzystać z aplikacji, jakie są jej funkcje, itp. Możesz to dostosować zgodnie z wymaganiami aplikacji.";
+            HelpContent = @"
+            Wirtualny Ogród - Twoje miejsce do zarządzania roślinami!
+
+            Moje rośliny:
+            - Wyświetla listę Twoich roślin.
+            - Możesz usunąć roślinę z listy.
+
+            Biblioteka roślin:
+            - Przeglądaj dostępne rośliny.
+            - Dodaj rośliny do swojej kolekcji.
+
+            Plan nawodnienia:
+            - Monitoruj, kiedy Twoje rośliny potrzebują wody.
+            - Podlewaj rośliny bezpośrednio z aplikacji.
+
+            Skorzystaj z panelu bocznego, aby nawigować między różnymi sekcjami aplikacji.
+            ";
         }
+
     }
 }
 

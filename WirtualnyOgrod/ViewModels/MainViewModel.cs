@@ -19,14 +19,12 @@ namespace WirtualnyOgrod.ViewModels
 
         public PlantLibraryViewModel PlantLibraryViewModel { get; set; }
         public MyPlantsViewModel MyPlantsViewModel { get; set; }
-        public SettingsViewModel SettingsViewModel { get; set; }
         public HelpViewModel HelpViewModel { get; set; }
 
         public MainViewModel()
         {
             PlantLibraryViewModel = PlantLibraryViewModel.Instance;
             MyPlantsViewModel = MyPlantsViewModel.Instance;
-            SettingsViewModel = new SettingsViewModel();
             HelpViewModel = new HelpViewModel();
         }
     }
