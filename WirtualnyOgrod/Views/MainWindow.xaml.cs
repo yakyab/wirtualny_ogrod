@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MahApps.Metro.Controls;
 using WirtualnyOgrod.ViewModels;
@@ -9,6 +8,9 @@ namespace WirtualnyOgrod
 {
     public partial class MainWindow : MetroWindow
     {
+        /// <summary>
+        /// Główne okno aplikacji.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -18,8 +20,12 @@ namespace WirtualnyOgrod
             WateringScheduleListView.DataContext = MyPlantsViewModel.Instance;
             HelpPanel.Visibility = Visibility.Visible;
         }
+
         private bool isMuted = false;
 
+        /// <summary>
+        /// Obsługuje kliknięcie przycisku wyciszenia.
+        /// </summary>
         private void OnMuteClick(object sender, RoutedEventArgs e)
         {
             isMuted = !isMuted; // Zmienia stan wyciszenia
@@ -35,6 +41,9 @@ namespace WirtualnyOgrod
             }
         }
 
+        /// <summary>
+        /// Obsługuje kliknięcie przycisku "Moje Rośliny".
+        /// </summary>
         private void OnMyPlantsClick(object sender, RoutedEventArgs e)
         {
             HideAllPanels();
@@ -47,6 +56,9 @@ namespace WirtualnyOgrod
             }
         }
 
+        /// <summary>
+        /// Obsługuje kliknięcie przycisku "Plan Nawadniania".
+        /// </summary>
         private void OnWateringPlanClick(object sender, RoutedEventArgs e)
         {
             HideAllPanels();
@@ -59,6 +71,9 @@ namespace WirtualnyOgrod
             }
         }
 
+        /// <summary>
+        /// Obsługuje kliknięcie przycisku "Biblioteka Roślin".
+        /// </summary>
         private void OnPlantLibraryClick(object sender, RoutedEventArgs e)
         {
             HideAllPanels();
@@ -71,6 +86,9 @@ namespace WirtualnyOgrod
             }
         }
 
+        /// <summary>
+        /// Obsługuje kliknięcie przycisku "Pomoc".
+        /// </summary>
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
             HideAllPanels();
@@ -83,6 +101,9 @@ namespace WirtualnyOgrod
             }
         }
 
+        /// <summary>
+        /// Ukrywa wszystkie panele.
+        /// </summary>
         private void HideAllPanels()
         {
             MyPlantsListView.Visibility = Visibility.Collapsed;

@@ -5,13 +5,22 @@ using WirtualnyOgrod.Models;
 
 namespace WirtualnyOgrod.ViewModels
 {
+    /// <summary>
+    /// Model widoku reprezentujący bibliotekę dostępnych roślin.
+    /// </summary>
     public class PlantLibraryViewModel : BaseViewModel
     {
         private static PlantLibraryViewModel _instance;
+        /// <summary>
+        /// Singleton instancji PlantLibraryViewModel.
+        /// </summary>
         public static PlantLibraryViewModel Instance => _instance ??= new PlantLibraryViewModel();
 
         private ObservableCollection<Plant> _availablePlants = new ObservableCollection<Plant>();
 
+        /// <summary>
+        /// Kolekcja dostępnych roślin.
+        /// </summary>
         public ObservableCollection<Plant> AvailablePlants
         {
             get { return _availablePlants; }
@@ -22,17 +31,21 @@ namespace WirtualnyOgrod.ViewModels
             }
         }
 
+        /// <summary>
+        /// Polecenie do dodawania rośliny do moich roślin.
+        /// </summary>
         public ICommand AddPlantToMyPlantsCommand { get; set; }
-        public ICommand RemoveFromLibraryCommand { get; set; }
 
         private PlantLibraryViewModel()
         {
             AddPlantToMyPlantsCommand = new RelayCommand<Plant>(AddPlantToMyPlants);
-            RemoveFromLibraryCommand = new RelayCommand<Plant>(RemoveFromLibrary);
 
             InitializeAvailablePlants();
         }
 
+        /// <summary>
+        /// Inicjalizuje listę dostępnych roślin.
+        /// </summary>
         private void InitializeAvailablePlants()
         {
             AvailablePlants.Add(new Plant { Id = 1, Name = "Róża", Description = "Kwiaty w różnych kolorach.", WateringTimer = 36, OriginalWateringTime = 36 });
@@ -57,6 +70,9 @@ namespace WirtualnyOgrod.ViewModels
             AvailablePlants.Add(new Plant { Id = 20, Name = "Orchidea", Description = "Egzotyczny kwiat doniczkowy.", WateringTimer = 46, OriginalWateringTime = 46 });
         }
 
+        /// <summary>
+        /// Dodaje wybraną roślinę do moich roślin i usuwa ją z dostępnych roślin.
+        /// </summary>
         private void AddPlantToMyPlants(Plant plant)
         {
             if (plant != null)
@@ -66,13 +82,6 @@ namespace WirtualnyOgrod.ViewModels
             }
         }
 
-        private void RemoveFromLibrary(Plant plant)
-        {
-            if (plant != null && !AvailablePlants.Contains(plant))
-            {
-                AvailablePlants.Add(plant);
-            }
-        }
     }
 }
 

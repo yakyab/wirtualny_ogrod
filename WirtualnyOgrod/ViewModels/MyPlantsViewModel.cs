@@ -4,24 +4,45 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WirtualnyOgrod.Models;
 using System.Windows.Threading;
-using System.Linq;
 
 namespace WirtualnyOgrod.ViewModels
 {
+    /// <summary>
+    /// Model widoku reprezentujący zarządzanie moimi roślinami.
+    /// </summary>
     public class MyPlantsViewModel : BaseViewModel
     {
         private static MyPlantsViewModel _instance;
+
+        /// <summary>
+        /// Singleton instancji MyPlantsViewModel.
+        /// </summary>
         public static MyPlantsViewModel Instance => _instance ??= new MyPlantsViewModel();
 
         private ObservableCollection<Plant> _myPlants = new ObservableCollection<Plant>();
+
+        /// <summary>
+        /// Kolekcja moich roślin.
+        /// </summary>
         public ObservableCollection<Plant> MyPlants
         {
             get { return _myPlants; }
             set { _myPlants = value; OnPropertyChanged(nameof(MyPlants)); }
         }
 
+        /// <summary>
+        /// Polecenie do usuwania rośliny.
+        /// </summary>
         public ICommand RemovePlantCommand { get; set; }
+
+        /// <summary>
+        /// Polecenie do dodawania rośliny.
+        /// </summary>
         public ICommand AddPlantCommand { get; set; }
+
+        /// <summary>
+        /// Polecenie do podlewania rośliny.
+        /// </summary>
         public ICommand WaterPlantCommand { get; set; }
 
         private DispatcherTimer _timer;
@@ -34,6 +55,9 @@ namespace WirtualnyOgrod.ViewModels
             InitializeTimer();
         }
 
+        /// <summary>
+        /// Inicjalizuje timer do aktualizacji czasu nawadniania roślin.
+        /// </summary>
         private void InitializeTimer()
         {
             _timer = new DispatcherTimer();
@@ -42,6 +66,9 @@ namespace WirtualnyOgrod.ViewModels
             _timer.Start();
         }
 
+        /// <summary>
+        /// Aktualizuje timery nawadniania dla wszystkich roślin.
+        /// </summary>
         private void UpdateWateringTimers(object sender, EventArgs e)
         {
             for (int i = MyPlants.Count - 1; i >= 0; i--)
@@ -56,6 +83,9 @@ namespace WirtualnyOgrod.ViewModels
             }
         }
 
+        /// <summary>
+        /// Usuwa wybraną roślinę.
+        /// </summary>
         private void RemovePlant(Plant plantToRemove)
         {
             if (plantToRemove != null)
@@ -64,6 +94,9 @@ namespace WirtualnyOgrod.ViewModels
             }
         }
 
+        /// <summary>
+        /// Podlewa wybraną roślinę.
+        /// </summary>
         private void WaterPlant(Plant plantToWater)
         {
             if (plantToWater != null)
@@ -71,8 +104,6 @@ namespace WirtualnyOgrod.ViewModels
                 plantToWater.WateringTimer = plantToWater.OriginalWateringTime;
             }
         }
-
-
     }
 }
 
