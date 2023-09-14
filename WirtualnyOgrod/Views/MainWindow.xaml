@@ -114,7 +114,7 @@
         <Style x:Key="MyPlantsBackground" TargetType="ListView">
             <Setter Property="Background">
                 <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Views/Images/garden.jpg" Opacity="0.3" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Resources/Images/garden.jpg" Opacity="0.3" Stretch="UniformToFill"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -122,7 +122,7 @@
         <Style x:Key="PlantLibraryBackground" TargetType="ListView">
             <Setter Property="Background">
                 <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Views/Images/library.jpg" Opacity="0.3" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Resources/Images/library.jpg" Opacity="0.3" Stretch="UniformToFill"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -130,7 +130,7 @@
         <Style x:Key="WateringScheduleBackground" TargetType="ListView">
             <Setter Property="Background">
                 <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Views/Images/watering.jpg" Opacity="0.3" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Resources/Images/watering.jpg" Opacity="0.3" Stretch="UniformToFill"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -138,7 +138,7 @@
         <Style x:Key="HelpBackground" TargetType="StackPanel">
             <Setter Property="Background">
                 <Setter.Value>
-                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Views/Images/help.jpg" Opacity="0.15" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="pack://application:,,,/WirtualnyOgrod;component/Resources/Images/help.jpg" Opacity="0.15" Stretch="UniformToFill"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -182,7 +182,7 @@
             <Button Content="📚" ToolTip="Biblioteka roślin" Width="50" Height="50" Margin="5" Background="RosyBrown" Click="OnPlantLibraryClick"/>
             <Button Content="❓" ToolTip="Pomoc" Width="50" Height="50" Margin="5" Background="#FFA500" Click="OnHelpClick"/>
             <Button x:Name="MuteButton" Width="50" Height="50" Margin="5" Background="White" Click="OnMuteClick">
-                <Image x:Name="MuteImage" Source="pack://application:,,,/WirtualnyOgrod;component/Views/Images/speaker.jpg"/>
+                <Image x:Name="MuteImage" Source="pack://application:,,,/WirtualnyOgrod;component/Resources/Images/speaker.jpg"/>
             </Button>
         </StackPanel>
 

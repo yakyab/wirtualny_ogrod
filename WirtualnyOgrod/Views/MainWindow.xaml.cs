@@ -33,11 +33,11 @@ namespace WirtualnyOgrod
             // Aktualizuje ikonę w zależności od stanu wyciszenia
             if (isMuted)
             {
-                MuteImage.Source = new BitmapImage(new Uri("pack://application:,,,/WirtualnyOgrod;component/Views/Images/speaker muted.jpg"));
+                MuteImage.Source = new BitmapImage(new Uri("pack://application:,,,/WirtualnyOgrod;component/Resources/Images/speaker muted.jpg"));
             }
             else
             {
-                MuteImage.Source = new BitmapImage(new Uri("pack://application:,,,/WirtualnyOgrod;component/Views/Images/speaker.jpg"));
+                MuteImage.Source = new BitmapImage(new Uri("pack://application:,,,/WirtualnyOgrod;component/Resources/Images/speaker.jpg"));
             }
         }
 
@@ -51,7 +51,7 @@ namespace WirtualnyOgrod
             if (!isMuted)
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer();
-                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Views/Sounds/birds.wav")).Stream;
+                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Resources/Sounds/birds.wav")).Stream;
                 player.Play();
             }
         }
@@ -66,7 +66,7 @@ namespace WirtualnyOgrod
             if (!isMuted)
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer();
-                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Views/Sounds/water.wav")).Stream;
+                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Resources/Sounds/water.wav")).Stream;
                 player.Play();
             }
         }
@@ -81,7 +81,7 @@ namespace WirtualnyOgrod
             if (!isMuted)
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer();
-                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Views/Sounds/spade.wav")).Stream;
+                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Resources/Sounds/spade.wav")).Stream;
                 player.Play();
             }
         }
@@ -96,7 +96,7 @@ namespace WirtualnyOgrod
             if (!isMuted)
             {
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer();
-                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Views/Sounds/menu.wav")).Stream;
+                player.Stream = Application.GetResourceStream(new Uri("pack://application:,,,/WirtualnyOgrod;component/Resources/Sounds/menu.wav")).Stream;
                 player.Play();
             }
         }
